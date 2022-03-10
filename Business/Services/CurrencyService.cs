@@ -59,7 +59,7 @@ namespace Business.Services
                             {
                                 var currency = codeList.Where(x => x.Id == currencies.Id).FirstOrDefault();
                                 currency.Currency = currencies.Currency;
-                                currency.CurrentRate = Convert.ToDouble(item.ForexBuying);
+                                currency.CurrentRate = currencies.CurrentRate;
                                 currency.LastUpdate = xmlDate;
                                 _db.Update(currency);
                             }
@@ -70,12 +70,12 @@ namespace Business.Services
                             Currencies currency = new Currencies()
                             {
                                 Currency = item.CurrencyCode,
-                                CurrentRate = Convert.ToDouble(item.ForexBuying),
+                                CurrentRate = double.Parse(item.ForexBuying, System.Globalization.CultureInfo.InvariantCulture),
                                 LastUpdate = xmlDate,
                                 CurrencyDetail = new List<CurrencyDetail>() { new CurrencyDetail() {
                             Date=xmlDate,
                             Currency=item.CurrencyCode,
-                            Rate=Convert.ToDouble(item.ForexBuying),
+                            Rate=double.Parse(item.ForexBuying, System.Globalization.CultureInfo.InvariantCulture),
                             Changes="-"
                             } }
                             };
@@ -92,12 +92,12 @@ namespace Business.Services
                             todayCurrency= currencyDetailList.Where(x => x.Date == xmlDate&& x.Currencies.Currency == item.Kod).FirstOrDefault();
                             if (lastCurrency != null && todayCurrency == null)
                             {
-                                round= (( Convert.ToDouble(item.ForexBuying)- lastCurrency.Rate) / lastCurrency.Rate) * 100;
+                                round= ((double.Parse(item.ForexBuying, System.Globalization.CultureInfo.InvariantCulture) - lastCurrency.Rate) / lastCurrency.Rate) * 100;
                                 var curreny = codeList.Where(x => x.Currency == item.CurrencyCode).FirstOrDefault();
                                 var detail = new CurrencyDetail()
                                 {
                                     Currency = curreny.Currency,
-                                    Rate = Convert.ToDouble(item.ForexBuying),
+                                    Rate = double.Parse(item.ForexBuying, System.Globalization.CultureInfo.InvariantCulture),
                                     Changes = ChangesText(round),
                                     Date = xmlDate,
                                     Currencies = curreny
@@ -119,8 +119,7 @@ namespace Business.Services
                 Currency = x.Currency,
                 CurrentRate = x.CurrentRate,
                 LastUpdate=x.LastUpdate,
-                CurrencyDetail = x.CurrencyDetail.OrderBy(x=>x.Rate).ToList()
-            }).OrderBy(x=>x.Currency);
+            }).OrderBy(x=>x.Currency).ThenBy(x=>x.CurrentRate);
 
             return new SuccessResult<IQueryable<CurrencyModel>>(result);
         }
@@ -134,11 +133,11 @@ namespace Business.Services
         {
             if (number<0)
             {
-                return "-" + number + "%";
+                return Math.Round(number, 2)  + "%";
             }
             else if (number>0)
             {
-                return "+" + number + "%";
+                return "+" + Math.Round(number, 2) + "%";
             }
             else
             {
@@ -147,3 +146,4 @@ namespace Business.Services
         }
     }
 }
+

@@ -7,6 +7,9 @@ namespace MoneyExChangeFollowAPI.RequestModel
 {
     public class CurrencyDetailRequest
     {
+        /// <summary>
+        /// Money Code place
+        /// </summary>
         public string Code { get; set; }
     }
 }

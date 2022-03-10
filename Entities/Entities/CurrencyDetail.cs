@@ -1,6 +1,7 @@
 ﻿using AppCore.Records.Bases;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Entities.Entities
@@ -9,6 +10,7 @@ namespace Entities.Entities
     {
         public string Currency { get; set; }
         public DateTime Date { get; set; }
+
         public double Rate { get; set; }
         public string Changes { get; set; }
 
