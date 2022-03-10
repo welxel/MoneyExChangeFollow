@@ -1,4 +1,5 @@
 ﻿using Business.Services.Bases;
+using Microsoft.VisualBasic.CompilerServices;
 using Quartz;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,12 @@ namespace MoneyExChangeFollowAPI.Tasking
         }
         public Task Execute(IJobExecutionContext context)
         {
-            var task = Task.Run(() =>_service.FillCurrentInfo()); ;
+            var task= MoneyExChangeFollowAPI.Extentions.Utils.Retry<bool>(() => {return _service.FillCurrentInfo(); }, 10, 30000); ;
             return task;
         }
+
+
     }
 }
+
+

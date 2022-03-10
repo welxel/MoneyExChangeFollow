@@ -31,25 +31,15 @@ namespace Business.Services
             _detailDb = detailDb;
             _db = db;
         }
-        public Result Add(CurrencyModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Result Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _db.Dispose();
         }
 
-        public async Task FillCurrentInfo()
+        public  bool FillCurrentInfo()
         {
-            var response = await _integrationService.GetAsync("https://www.tcmb.gov.tr/kurlar/today.xml");
-            string xmlBody = await response.Content.ReadAsStringAsync();
+            var response =  _integrationService.GetAsync("https://www.tcmb.gov.tr/kurlar/today.xml").GetAwaiter().GetResult();
+            string xmlBody =  response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
             XmlSerializer serializer = new XmlSerializer(typeof(CurrencyDateXML));
             using (StringReader reader = new StringReader(xmlBody))
@@ -120,6 +110,7 @@ namespace Business.Services
                 }
 
             }
+            return true;
         }
 
         public Result<IQueryable<CurrencyModel>> GetQuery()
@@ -132,11 +123,6 @@ namespace Business.Services
             }).OrderBy(x=>x.Currency);
 
             return new SuccessResult<IQueryable<CurrencyModel>>(result);
-        }
-
-        public Result Update(CurrencyModel model)
-        {
-            throw new NotImplementedException();
         }
 
         private DateTime FormatingDateTimeNow(DateTime date)

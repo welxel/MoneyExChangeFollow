@@ -20,19 +20,9 @@ namespace Business.Services
             _db = db;
         }
 
-        public Result Add(CurrencyDetailModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Result Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _db.Dispose();
         }
 
         public Result<IQueryable<CurrencyDetailModel>> GetDetails()
@@ -82,11 +72,6 @@ namespace Business.Services
                 return new ErrorResult<IQueryable<CurrencyDetailModel>>("SomeThink is wrong");
             }
             
-        }
-
-        public Result Update(CurrencyDetailModel model)
-        {
-            throw new NotImplementedException();
         }
     }
 }

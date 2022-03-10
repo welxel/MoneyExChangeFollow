@@ -115,3 +115,8 @@ C:\Users\dbhsoft\source\repos\MoneyExChangeFollowAPI\MoneyExChangeFollowAPI\obj\
 C:\Users\dbhsoft\source\repos\MoneyExChangeFollowAPI\MoneyExChangeFollowAPI\obj\Debug\netcoreapp3.1\MoneyExChangeFollowAPI.genruntimeconfig.cache
 C:\Users\dbhsoft\source\repos\MoneyExChangeFollowAPI\MoneyExChangeFollowAPI\bin\Debug\netcoreapp3.1\Quartz.Extensions.DependencyInjection.dll
 C:\Users\dbhsoft\source\repos\MoneyExChangeFollowAPI\MoneyExChangeFollowAPI\bin\Debug\netcoreapp3.1\Quartz.Extensions.Hosting.dll
+C:\Users\dbhsoft\source\repos\MoneyExChangeFollowAPI\MoneyExChangeFollowAPI\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\dbhsoft\source\repos\MoneyExChangeFollowAPI\MoneyExChangeFollowAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\dbhsoft\source\repos\MoneyExChangeFollowAPI\MoneyExChangeFollowAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\dbhsoft\source\repos\MoneyExChangeFollowAPI\MoneyExChangeFollowAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\dbhsoft\source\repos\MoneyExChangeFollowAPI\MoneyExChangeFollowAPI\obj\Debug\netcoreapp3.1\MoneyExChangeFollowAPI.MvcApplicationPartsAssemblyInfo.cs

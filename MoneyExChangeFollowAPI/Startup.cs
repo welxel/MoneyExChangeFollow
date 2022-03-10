@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using MoneyExChangeFollowAPI.Tasking;
 using Newtonsoft.Json.Serialization;
 using Quartz;
@@ -27,13 +28,11 @@ namespace MoneyExChangeFollowAPI
     {
         public Startup(IConfiguration configuration)
         {
-            //SchedulerTask.StartAsync().GetAwaiter().GetResult();
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson(options =>
@@ -43,8 +42,8 @@ namespace MoneyExChangeFollowAPI
             });
             services.AddScoped<DbContext, ETradeContext>();
 
-            services.AddScoped<ICurrencyService,CurrencyService>();
-            services.AddScoped<ICurrencyRepository,CurrencyRepository>();
+            services.AddScoped<ICurrencyService, CurrencyService>();
+            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 
             services.AddScoped<ICurrencyDetailService, CurrencyDetailService>();
             services.AddScoped<ICurrencyDetailRepository, CurrencyDetailRepository>();
@@ -57,21 +56,31 @@ namespace MoneyExChangeFollowAPI
                 q.SchedulerName = "Job Scheduler";
                 q.AddJob<FillCurrentDetail>(j => j.WithIdentity(jobKey));
                 q.AddTrigger(t => t
-                   .WithIdentity("notificationJobTrigger")
+                   .WithIdentity("currencyRecurringJob")
                    .ForJob(jobKey)
                    .StartNow()
-                   .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(23, 17))
+                   .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(00, 17))
                 );
             });
             services.AddQuartzHostedService();
 
-            //services.AddQuartzServer(options =>
-            //{
-            //    options.WaitForJobsToComplete = true;
-            //});
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Protel Currency API",
+                    Version = "v1",
+                    Description = "TCMB Currency following api.",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Furkan BEKTAS",
+                        Email = "furkaanbektas@gmail.com",
+                        Url = new Uri("https://furkanbektas.net"),
+                    },
+                });
+            });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -79,9 +88,17 @@ namespace MoneyExChangeFollowAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger(c => c.SerializeAsV2 = true); ;
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Protel API V1");
+            });
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
 
             app.UseAuthorization();
 
@@ -89,6 +106,7 @@ namespace MoneyExChangeFollowAPI
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

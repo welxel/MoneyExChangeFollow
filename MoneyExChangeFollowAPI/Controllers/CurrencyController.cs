@@ -13,11 +13,11 @@ namespace MoneyExChangeFollowAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CurrentController : ControllerBase
+    public class CurrencyController : ControllerBase
     {
         private readonly ICurrencyService _service;
         private readonly ICurrencyDetailService _detailService;
-        public CurrentController(ICurrencyService service, ICurrencyDetailService detailService)
+        public CurrencyController(ICurrencyService service, ICurrencyDetailService detailService)
         {
             _service = service;
             _detailService = detailService;
@@ -26,10 +26,9 @@ namespace MoneyExChangeFollowAPI.Controllers
         [HttpGet("getcurrency")]
         public IActionResult GetCurrency()
         {
-            //var avc = _service.FillAgainCurrentInfo();
             var result =_service.GetQuery();
             if (result.Status==ResultStatus.Success)
-            {
+            {   
                  return Ok(result);
             }
             return BadRequest(result);
