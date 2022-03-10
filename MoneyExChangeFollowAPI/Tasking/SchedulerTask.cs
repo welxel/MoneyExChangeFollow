@@ -9,7 +9,6 @@ namespace MoneyExChangeFollowAPI.Tasking
 {
     public class SchedulerTask
     {
-        private static readonly string ScheduleCronExpression = "* * * ? * *";
         public static async System.Threading.Tasks.Task StartAsync()
         {
             try
@@ -19,8 +18,8 @@ namespace MoneyExChangeFollowAPI.Tasking
                 {
                     await scheduler.Start();
                 }
-                var job1 = JobBuilder.Create<FillCurrentDetail>().WithIdentity("ExecuteTaskServiceCallJob1", "group1").Build();
-                var trigger1 = TriggerBuilder.Create().WithIdentity("ExecuteTaskServiceCallTrigger1", "group1").WithCronSchedule(ScheduleCronExpression).Build();
+                var job1 = JobBuilder.Create<FillCurrentDetail>().Build();
+                var trigger1 = TriggerBuilder.Create().WithDailyTimeIntervalSchedule((s) => { s.OnEveryDay().StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(21, 58)); }).StartNow().Build();
                 await scheduler.ScheduleJob(job1, trigger1);
             }
             catch (Exception ex) { }

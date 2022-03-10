@@ -19,7 +19,6 @@ namespace RehberimApiTest {
             _localService = ServiceScenariosBase.InstanceBase.CreateClient();
             _httpService = new HttpClient();
             service = new GeneralBusiness();
-            //_asda = asda;
         }
         [Test]
         [Order(1)]
@@ -30,18 +29,18 @@ namespace RehberimApiTest {
                 string xmlBody = await response.Content.ReadAsStringAsync();
                 if (HttpStatusCode.OK==response.StatusCode)
                 {
-                    TestContext.WriteLine("Tcmbden data gelmiştir test başarılı.");
+                    TestContext.WriteLine("Tcmbden get data. Test is success");
                 }
                 else
                 {
-                    TestContext.WriteLine("Tcmbden data gelememeiştir. Test başarırısız.");
+                    TestContext.WriteLine("Tcmbden can't return data. Test is unsuccessful.");
                 }
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
                 
             }
             catch (System.Exception)
             {
-                TestContext.WriteLine("Https requestte sorun oluşmuştur. Test başarısız.");
+                TestContext.WriteLine("Https requestte an error occurred. Test is unsuccessful.");
             }
             
         }

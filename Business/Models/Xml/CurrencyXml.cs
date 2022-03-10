@@ -38,7 +38,7 @@ namespace Xml2CSharp
 	}
 
 	[XmlRoot(ElementName = "Tarih_Date")]
-	public class TarihDate
+	public class CurrencyDateXML
 	{
 		[XmlElement(ElementName = "Currency")]
 		public List<CurrencyXml> Currency { get; set; }

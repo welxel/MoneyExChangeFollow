@@ -20,7 +20,7 @@ namespace XNUnitTest.Base {
         }
 
         public void Dispose() {
-            int a = 0;
+         
         }
     }
 }

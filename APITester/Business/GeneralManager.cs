@@ -8,8 +8,7 @@ namespace XNUnitTest.Manager {
     public class GeneralBusiness {
         public string GetJson(string pathName) {
             string json;
-            string newPathName;
-            newPathName = @"RequestJsons\" + pathName;
+            string newPathName= @"RequestJsons\" + pathName;
             try {
                 using (StreamReader r = new StreamReader(newPathName)) {
                     json = r.ReadToEnd();

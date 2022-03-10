@@ -46,15 +46,15 @@ namespace Business.Services
             throw new NotImplementedException();
         }
 
-        public async Task FillAgainCurrentInfo()
+        public async Task FillCurrentInfo()
         {
             var response = await _integrationService.GetAsync("https://www.tcmb.gov.tr/kurlar/today.xml");
             string xmlBody = await response.Content.ReadAsStringAsync();
 
-            XmlSerializer serializer = new XmlSerializer(typeof(TarihDate));
+            XmlSerializer serializer = new XmlSerializer(typeof(CurrencyDateXML));
             using (StringReader reader = new StringReader(xmlBody))
             {
-                var xmlFormat = (TarihDate)serializer.Deserialize(reader);
+                var xmlFormat = (CurrencyDateXML)serializer.Deserialize(reader);
                 var xmlDate =FormatingDateTimeNow(Convert.ToDateTime(xmlFormat.Date));
 
                 var codeList = _db.GetEntityQuery().ToList();

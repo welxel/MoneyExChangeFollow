@@ -12,11 +12,12 @@ namespace MoneyExChangeFollowAPI.Tasking
         private readonly ICurrencyService _service;
         public FillCurrentDetail(ICurrencyService service)
         {
+
             _service = service;
         }
         public Task Execute(IJobExecutionContext context)
         {
-            var task = Task.Run(() =>_service.FillAgainCurrentInfo()); ;
+            var task = Task.Run(() =>_service.FillCurrentInfo()); ;
             return task;
         }
     }

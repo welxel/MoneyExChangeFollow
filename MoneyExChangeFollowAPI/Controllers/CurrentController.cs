@@ -38,7 +38,7 @@ namespace MoneyExChangeFollowAPI.Controllers
         [HttpPost("GetCurrencyCodeDetail")]
         public IActionResult GetCurrencyCodeDetail(CurrencyDetailRequest currencyDetailModel)
         {
-            var result = _detailService.GetJustDetail();
+            var result = _detailService.GetDetails();
             if (result.Status== ResultStatus.Success)
             {
                 return Ok(new SuccessResult<List<CurrencyDetailModel>>(result.Data.Where(x => x.Currency == currencyDetailModel.Code).ToList()));

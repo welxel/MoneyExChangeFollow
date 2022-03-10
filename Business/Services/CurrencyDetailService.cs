@@ -35,7 +35,7 @@ namespace Business.Services
             throw new NotImplementedException();
         }
 
-        public Result<IQueryable<CurrencyDetailModel>> GetJustDetail()
+        public Result<IQueryable<CurrencyDetailModel>> GetDetails()
         {
             try
             {

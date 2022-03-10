@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace Business.Services.Bases {
     public interface ICurrencyService:IService<CurrencyModel> {
-        Task FillAgainCurrentInfo();
+        Task FillCurrentInfo();
     }
 }

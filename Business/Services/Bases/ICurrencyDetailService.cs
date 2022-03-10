@@ -10,6 +10,6 @@ namespace Business.Services.Bases
 {
     public interface ICurrencyDetailService:IService<CurrencyDetailModel>
     {
-        Result<IQueryable<CurrencyDetailModel>> GetJustDetail();
+        Result<IQueryable<CurrencyDetailModel>> GetDetails();
     }
 }

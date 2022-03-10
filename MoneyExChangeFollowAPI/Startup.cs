@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MoneyExChangeFollowAPI.Tasking;
 using Newtonsoft.Json.Serialization;
+using Quartz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace MoneyExChangeFollowAPI
     {
         public Startup(IConfiguration configuration)
         {
-            SchedulerTask.StartAsync().GetAwaiter().GetResult();
+            //SchedulerTask.StartAsync().GetAwaiter().GetResult();
             Configuration = configuration;
         }
 
@@ -47,6 +48,27 @@ namespace MoneyExChangeFollowAPI
 
             services.AddScoped<ICurrencyDetailService, CurrencyDetailService>();
             services.AddScoped<ICurrencyDetailRepository, CurrencyDetailRepository>();
+
+            var jobKey = new JobKey("notificationJob");
+            services.AddQuartz(q =>
+            {
+                q.UseMicrosoftDependencyInjectionJobFactory();
+                q.SchedulerId = "JobScheduler";
+                q.SchedulerName = "Job Scheduler";
+                q.AddJob<FillCurrentDetail>(j => j.WithIdentity(jobKey));
+                q.AddTrigger(t => t
+                   .WithIdentity("notificationJobTrigger")
+                   .ForJob(jobKey)
+                   .StartNow()
+                   .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(23, 17))
+                );
+            });
+            services.AddQuartzHostedService();
+
+            //services.AddQuartzServer(options =>
+            //{
+            //    options.WaitForJobsToComplete = true;
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

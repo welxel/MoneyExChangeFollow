@@ -6,8 +6,6 @@ using System.Linq.Expressions;
 
 namespace AppCore.DataAccess.EntityFramework.Bases
 {
-    //public abstract class RepositoryBase<TEntity> where TEntity : class
-    //public abstract class RepositoryBase<TEntity> where TEntity : class, new()
     public abstract class RepositoryBase<TEntity> : IDisposable where TEntity : RecordBase, new()
     {
         private readonly DbContext _db;
@@ -65,7 +63,7 @@ namespace AppCore.DataAccess.EntityFramework.Bases
         {
             try
             {
-                _db.Entry(entity).State = EntityState.Modified; // Eğer eklenilmezse default olarak add olarak algılar.Bundan dolayı kullanılan satır.
+                _db.Entry(entity).State = EntityState.Modified; 
                 _db.Set<TEntity>().Update(entity);
                 if (saveChanges)
                     SaveChanges();
@@ -75,48 +73,6 @@ namespace AppCore.DataAccess.EntityFramework.Bases
                 throw exc; 
             }
         }
-
-        public virtual void Delete(TEntity entity, bool saveChanges = true)
-        {
-            try
-            {
-                _db.Set<TEntity>().Remove(entity);
-                if (saveChanges)
-                    SaveChanges();
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-        public virtual void Delete(int id, bool saveChanges = true)
-        {
-            try
-            {
-                var entity = GetEntityQuery(e => e.Id == id).SingleOrDefault();
-                Delete(entity, saveChanges);
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-        
-        //GUID alanı kullanmadığım için açıklama satırına alındı.
-
-        //public virtual void Delete(string guid, bool saveChanges = true)
-        //{
-        //    try
-        //    {
-        //        var entity = GetEntityQuery(e => e.Guid == guid).SingleOrDefault();
-        //        Delete(entity, saveChanges);
-        //    }
-        //    catch (Exception exc)
-        //    {
-        //        throw exc;
-        //    }
-        //}
 
         public virtual int SaveChanges()
         {
