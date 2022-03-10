@@ -59,7 +59,7 @@ namespace MoneyExChangeFollowAPI
                    .WithIdentity("currencyRecurringJob")
                    .ForJob(jobKey)
                    .StartNow()
-                   .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(01, 50))
+                   .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(15, 31))
                 );
             });
             services.AddQuartzHostedService();
