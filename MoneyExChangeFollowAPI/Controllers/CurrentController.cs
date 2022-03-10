@@ -26,7 +26,7 @@ namespace MoneyExChangeFollowAPI.Controllers
         [HttpGet("getcurrency")]
         public IActionResult GetCurrency()
         {
-            var avc = _service.FillAgainCurrentInfo();
+            //var avc = _service.FillAgainCurrentInfo();
             var result =_service.GetQuery();
             if (result.Status==ResultStatus.Success)
             {

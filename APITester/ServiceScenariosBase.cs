@@ -46,33 +46,14 @@ namespace XServiceUnitTest {
 
 
         public static class Get {
-            public static string GetPerson() {
-                return $"api/personoperation/getpersons";
-            }
-            public static string GetUserById(int userId) {
-                return $"api/personoperation/getuserbyid/{userId}";
+            public static string GetCurrency() {
+                return $"Current/getcurrency";
             }
         }
 
         public static class Post {
-            public static string AddPerson() {
-                return $"api/personoperation/addperson";
-            }
-            public static string AddPersonInfo() {
-                return $"api/personinfo/addpersoninfo";
-            }
-        }
-
-        public static class Put
-        {
-        }
-
-        public static class Delete {
-            public static string DeletePersonelInfo(int userId) {
-                return $"api/personinfo/deletepersoninfo/{userId}";
-            }
-            public static string DeletePersonel(int userId) {
-                return $"api/personoperation/deleteperson/{userId}";
+            public static string GetCurrencyDetail() {
+                return $"Current/GetCurrencyCodeDetail";
             }
         }
     }

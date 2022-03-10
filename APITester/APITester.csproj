@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Folder Include="DeseriliaseClasses\" />
-    <Folder Include="RequestJsons\" />
   </ItemGroup>
 
   <ItemGroup>
