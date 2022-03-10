@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "KjJReU12TWl8CGfOLeLLYVT0x4cWBSqi8n2u+W1H9PMzgOiqdoNuw+ZfXvl26WmLcDhVh6TC9sqk0WYonWtOlQ==",
+  "dgSpecHash": "3WPDln4Gp/vi822PTYLddSWl91mqYTsTqdb47AjoY6nogQgHpWQJE60PEbPQTxOb1ijHbAb8WFKUIVPRpFVIyA==",
   "success": true,
   "projectFilePath": "C:\\Users\\dbhsoft\\source\\repos\\MoneyExChangeFollowAPI\\APITester\\APITester.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,8 @@
     "C:\\Users\\dbhsoft\\.nuget\\packages\\greenpipes\\4.0.0\\greenpipes.4.0.0.nupkg.sha512",
     "C:\\Users\\dbhsoft\\.nuget\\packages\\masstransit\\7.2.2\\masstransit.7.2.2.nupkg.sha512",
     "C:\\Users\\dbhsoft\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.6\\microsoft.aspnetcore.http.features.5.0.6.nupkg.sha512",
+    "C:\\Users\\dbhsoft\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.23\\microsoft.aspnetcore.jsonpatch.3.1.23.nupkg.sha512",
+    "C:\\Users\\dbhsoft\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.23\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.23.nupkg.sha512",
     "C:\\Users\\dbhsoft\\.nuget\\packages\\microsoft.aspnetcore.testhost\\3.1.20\\microsoft.aspnetcore.testhost.3.1.20.nupkg.sha512",
     "C:\\Users\\dbhsoft\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\dbhsoft\\.nuget\\packages\\microsoft.codecoverage\\16.5.0\\microsoft.codecoverage.16.5.0.nupkg.sha512",
@@ -46,8 +48,8 @@
     "C:\\Users\\dbhsoft\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\dbhsoft\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
     "C:\\Users\\dbhsoft\\.nuget\\packages\\newid\\3.0.3\\newid.3.0.3.nupkg.sha512",
-    "C:\\Users\\dbhsoft\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
-    "C:\\Users\\dbhsoft\\.nuget\\packages\\newtonsoft.json.bson\\1.0.1\\newtonsoft.json.bson.1.0.1.nupkg.sha512",
+    "C:\\Users\\dbhsoft\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\dbhsoft\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\dbhsoft\\.nuget\\packages\\nuget.frameworks\\5.0.0\\nuget.frameworks.5.0.0.nupkg.sha512",
     "C:\\Users\\dbhsoft\\.nuget\\packages\\nunit\\3.12.0\\nunit.3.12.0.nupkg.sha512",
     "C:\\Users\\dbhsoft\\.nuget\\packages\\nunit3testadapter\\3.16.1\\nunit3testadapter.3.16.1.nupkg.sha512",

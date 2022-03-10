@@ -81,3 +81,5 @@ C:\Users\dbhsoft\source\repos\MoneyExChangeFollowAPI\MoneyExChangeFollowAPI\obj\
 C:\Users\dbhsoft\source\repos\MoneyExChangeFollowAPI\MoneyExChangeFollowAPI\bin\Debug\netcoreapp3.1\Humanizer.dll
 C:\Users\dbhsoft\source\repos\MoneyExChangeFollowAPI\MoneyExChangeFollowAPI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\dbhsoft\source\repos\MoneyExChangeFollowAPI\MoneyExChangeFollowAPI\bin\Debug\netcoreapp3.1\Quartz.dll
+C:\Users\dbhsoft\source\repos\MoneyExChangeFollowAPI\MoneyExChangeFollowAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\dbhsoft\source\repos\MoneyExChangeFollowAPI\MoneyExChangeFollowAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll

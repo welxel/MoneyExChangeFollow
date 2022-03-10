@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ETradeContext))]
-    [Migration("20220308212326_v1")]
+    [Migration("20220309224149_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,18 +21,21 @@ namespace DataAccess.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Entities.Entities.Currency", b =>
+            modelBuilder.Entity("Entities.Entities.Currencies", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Code")
+                    b.Property<string>("Currency")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("CurrentRate")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastUpdate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -46,8 +49,11 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ChangesRound")
-                        .HasColumnType("int");
+                    b.Property<string>("Changes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Currency")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
@@ -67,16 +73,16 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Entities.Entities.CurrencyDetail", b =>
                 {
-                    b.HasOne("Entities.Entities.Currency", "currencies")
+                    b.HasOne("Entities.Entities.Currencies", "Currencies")
                         .WithMany("CurrencyDetail")
                         .HasForeignKey("CurrencyId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("currencies");
+                    b.Navigation("Currencies");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Currency", b =>
+            modelBuilder.Entity("Entities.Entities.Currencies", b =>
                 {
                     b.Navigation("CurrencyDetail");
                 });

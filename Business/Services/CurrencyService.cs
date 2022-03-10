@@ -55,7 +55,7 @@ namespace Business.Services
             using (StringReader reader = new StringReader(xmlBody))
             {
                 var xmlFormat = (TarihDate)serializer.Deserialize(reader);
-                var xmlDate = Convert.ToDateTime(xmlFormat.Date);
+                var xmlDate =FormatingDateTimeNow(Convert.ToDateTime(xmlFormat.Date));
 
                 var codeList = _db.GetEntityQuery().ToList();
 
@@ -63,39 +63,57 @@ namespace Business.Services
                 {
                     if (item.CurrencyCode == "USD" || item.CurrencyCode == "EUR" || item.CurrencyCode == "GBP" || item.CurrencyCode == "CHF" || item.CurrencyCode == "KWD" || item.CurrencyCode == "SAR" || item.CurrencyCode == "RUB")
                     {
-                        if (codeList.Where(x => x.Code == item.CurrencyCode).Count() == 0)
-                        {
-                            Currency currency = new Currency()
+                        foreach (var currencies in codeList)
+                        { 
+                            if (currencies.LastUpdate<xmlDate)
                             {
-                                Code = item.CurrencyCode,
-                                Name = item.CurrencyName,
+                                var currency = codeList.Where(x => x.Id == currencies.Id).FirstOrDefault();
+                                currency.Currency = currencies.Currency;
+                                currency.CurrentRate = Convert.ToDouble(item.ForexBuying);
+                                currency.LastUpdate = xmlDate;
+                                _db.Update(currency);
+                            }
+                        }
+
+                        if (codeList.Where(x => x.Currency == item.CurrencyCode).Count() == 0)
+                        {
+                            Currencies currency = new Currencies()
+                            {
+                                Currency = item.CurrencyCode,
+                                CurrentRate = Convert.ToDouble(item.ForexBuying),
+                                LastUpdate = xmlDate,
                                 CurrencyDetail = new List<CurrencyDetail>() { new CurrencyDetail() {
                             Date=xmlDate,
-                            ChangesRound=Convert.ToDouble(item.ForexBuying),
-                            Rate=0
+                            Currency=item.CurrencyCode,
+                            Rate=Convert.ToDouble(item.ForexBuying),
+                            Changes="-"
                             } }
                             };
                             _db.Add(currency);
                         }
+
                         else
                         {
-                            CurrencyDetailModel deneme = null;
+                            CurrencyDetailModel lastCurrency = null;
+                            CurrencyDetailModel todayCurrency = null;
                             double round = 0;
-                            deneme = _detailService.GetQuery().Data.Where(x => x.Date == DateTime.Now.AddDays(-1) && x.currencies.Code == item.Kod).FirstOrDefault();
-                            if (deneme !=null)
+                            var currencyDetailList = _detailService.GetQuery().Data;
+                            lastCurrency = currencyDetailList.Where(x => x.Date == xmlDate.AddDays(-1)&& x.Currencies.Currency == item.Kod).FirstOrDefault();
+                            todayCurrency= currencyDetailList.Where(x => x.Date == xmlDate&& x.Currencies.Currency == item.Kod).FirstOrDefault();
+                            if (lastCurrency != null && todayCurrency == null)
                             {
-                                round= (( Convert.ToDouble(item.ForexBuying)- deneme.ChangesRound) / deneme.ChangesRound) * 100;
+                                round= (( Convert.ToDouble(item.ForexBuying)- lastCurrency.Rate) / lastCurrency.Rate) * 100;
+                                var curreny = codeList.Where(x => x.Currency == item.CurrencyCode).FirstOrDefault();
+                                var detail = new CurrencyDetail()
+                                {
+                                    Currency = curreny.Currency,
+                                    Rate = Convert.ToDouble(item.ForexBuying),
+                                    Changes = ChangesText(round),
+                                    Date = xmlDate,
+                                    Currencies = curreny
+                                };
+                                _detailDb.Add(detail);
                             }
-
-                            var curreny = codeList.Where(x => x.Code == item.CurrencyCode).FirstOrDefault();
-                            var detail = new CurrencyDetail()
-                            {
-                                CurrencyId = curreny.Id,
-                                ChangesRound = Convert.ToDouble(item.ForexBuying),
-                                Rate = round,
-                                Date = DateTime.Now
-                            };
-                            _detailDb.Add(detail);
                         }
                     
                     }
@@ -107,10 +125,11 @@ namespace Business.Services
         public Result<IQueryable<CurrencyModel>> GetQuery()
         {
             var result = _db.GetEntityQuery().Include(x => x.CurrencyDetail).Select(x => new CurrencyModel() {
-                Code = x.Code,
-                Name = x.Name,
-                CurrencyDetail = x.CurrencyDetail
-            }).OrderBy(x=>x.Code);
+                Currency = x.Currency,
+                CurrentRate = x.CurrentRate,
+                LastUpdate=x.LastUpdate,
+                CurrencyDetail = x.CurrencyDetail.OrderBy(x=>x.Rate).ToList()
+            }).OrderBy(x=>x.Currency);
 
             return new SuccessResult<IQueryable<CurrencyModel>>(result);
         }
@@ -118,6 +137,27 @@ namespace Business.Services
         public Result Update(CurrencyModel model)
         {
             throw new NotImplementedException();
+        }
+
+        private DateTime FormatingDateTimeNow(DateTime date)
+        {
+            var formatDate = date.ToString("MM/dd/yyyy 00:00:00");
+            return DateTime.Parse(formatDate);
+        }
+        private String ChangesText(double number)
+        {
+            if (number<0)
+            {
+                return "-" + number + "%";
+            }
+            else if (number>0)
+            {
+                return "+" + number + "%";
+            }
+            else
+            {
+                return "-";
+            }
         }
     }
 }

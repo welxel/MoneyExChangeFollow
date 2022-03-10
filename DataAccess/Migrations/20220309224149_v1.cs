@@ -13,8 +13,9 @@ namespace DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Currency = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastUpdate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CurrentRate = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,9 +28,10 @@ namespace DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Currency = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Rate = table.Column<double>(type: "float", nullable: false),
-                    ChangesRound = table.Column<int>(type: "int", nullable: false),
+                    Changes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CurrencyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

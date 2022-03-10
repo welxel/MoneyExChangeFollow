@@ -7,21 +7,23 @@ namespace DataAccess.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<double>(
-                name: "ChangesRound",
-                table: "CurrencyDetails",
+                name: "CurrentRate",
+                table: "Currencies",
                 type: "float",
                 nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int");
+                defaultValue: 0.0,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)",
+                oldNullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<int>(
-                name: "ChangesRound",
-                table: "CurrencyDetails",
-                type: "int",
-                nullable: false,
+            migrationBuilder.AlterColumn<string>(
+                name: "CurrentRate",
+                table: "Currencies",
+                type: "nvarchar(max)",
+                nullable: true,
                 oldClrType: typeof(double),
                 oldType: "float");
         }

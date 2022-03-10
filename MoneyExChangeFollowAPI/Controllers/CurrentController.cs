@@ -1,7 +1,9 @@
 ﻿using AppCore.Business.Models.Results;
+using Business.Models;
 using Business.Services.Bases;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MoneyExChangeFollowAPI.RequestModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,18 +16,32 @@ namespace MoneyExChangeFollowAPI.Controllers
     public class CurrentController : ControllerBase
     {
         private readonly ICurrencyService _service;
-        public CurrentController(ICurrencyService service)
+        private readonly ICurrencyDetailService _detailService;
+        public CurrentController(ICurrencyService service, ICurrencyDetailService detailService)
         {
             _service = service;
+            _detailService = detailService;
         }
 
         [HttpGet("getcurrency")]
         public IActionResult GetCurrency()
         {
-           var result =_service.GetQuery();
+            var avc = _service.FillAgainCurrentInfo();
+            var result =_service.GetQuery();
             if (result.Status==ResultStatus.Success)
             {
                  return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("GetCurrencyCodeDetail")]
+        public IActionResult GetCurrencyCodeDetail(CurrencyDetailRequest currencyDetailModel)
+        {
+            var result = _detailService.GetJustDetail();
+            if (result.Status== ResultStatus.Success)
+            {
+                return Ok(new SuccessResult<List<CurrencyDetailModel>>(result.Data.Where(x => x.Currency == currencyDetailModel.Code).ToList()));
             }
             return BadRequest(result);
         }

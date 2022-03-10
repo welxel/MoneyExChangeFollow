@@ -19,18 +19,21 @@ namespace DataAccess.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Entities.Entities.Currency", b =>
+            modelBuilder.Entity("Entities.Entities.Currencies", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Code")
+                    b.Property<string>("Currency")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("CurrentRate")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("LastUpdate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -44,8 +47,11 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("ChangesRound")
-                        .HasColumnType("float");
+                    b.Property<string>("Changes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Currency")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
@@ -65,16 +71,16 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Entities.Entities.CurrencyDetail", b =>
                 {
-                    b.HasOne("Entities.Entities.Currency", "currencies")
+                    b.HasOne("Entities.Entities.Currencies", "Currencies")
                         .WithMany("CurrencyDetail")
                         .HasForeignKey("CurrencyId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("currencies");
+                    b.Navigation("Currencies");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Currency", b =>
+            modelBuilder.Entity("Entities.Entities.Currencies", b =>
                 {
                     b.Navigation("CurrencyDetail");
                 });

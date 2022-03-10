@@ -6,8 +6,10 @@ using System.Text;
 
 namespace Business.Models {
     public class CurrencyModel:RecordBase {
-        public string Name { get; set; }
-        public string Code { get; set; }
+        public string Currency { get; set; }
+        public DateTime LastUpdate { get; set; }
+        public double CurrentRate { get; set; }
+
         public List<CurrencyDetail> CurrencyDetail { get; set; }
     }
 }

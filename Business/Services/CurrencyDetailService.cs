@@ -35,23 +35,42 @@ namespace Business.Services
             throw new NotImplementedException();
         }
 
+        public Result<IQueryable<CurrencyDetailModel>> GetJustDetail()
+        {
+            try
+            {
+                var result = _db.GetEntityQuery().Include(x => x.Currencies).Select(c => new CurrencyDetailModel()
+                {
+                    Date = c.Date,
+                    Currency = c.Currency,
+                    Changes = c.Changes,
+                    Rate = c.Rate
+                });
+                return new SuccessResult<IQueryable<CurrencyDetailModel>>(result);
+            }
+            catch (Exception)
+            {
+                return new ErrorResult<IQueryable<CurrencyDetailModel>>("SomeThink is wrong");
+            }
+           
+        }
+
         public Result<IQueryable<CurrencyDetailModel>> GetQuery()
         {
             try
             {
-                var result = _db.GetEntityQuery().Include(x => x.currencies).Select(c => new CurrencyDetailModel()
+                var result = _db.GetEntityQuery().Include(x => x.Currencies).Select(c => new CurrencyDetailModel()
                 {
                     Date = c.Date,
-                    Id = c.Id,
-                    ChangesRound = c.ChangesRound,
+                    Currency = c.Currency,
+                    Changes = c.Changes,
                     Rate = c.Rate,
-                    currencies = new CurrencyModel()
+                    Currencies = new CurrencyModel()
                     {
-                        Id = c.currencies.Id,
-                        Code = c.currencies.Code,
-                        Name = c.currencies.Name
+                        Currency = c.Currencies.Currency,
+                        CurrentRate = c.Currencies.CurrentRate,
+                        LastUpdate = c.Currencies.LastUpdate
                     },
-                    CurrencyId = c.CurrencyId,
                 });
 
                 return new SuccessResult<IQueryable<CurrencyDetailModel>>(result);

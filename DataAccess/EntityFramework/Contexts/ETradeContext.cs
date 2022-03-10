@@ -8,7 +8,7 @@ using System.Text;
 
 namespace DataAccess.EntityFramework.Contexts {
     public class ETradeContext : DbContext {
-        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<Currencies> Currencies { get; set; }
         public DbSet<CurrencyDetail> CurrencyDetails { get; set; }
 
 
@@ -18,10 +18,8 @@ namespace DataAccess.EntityFramework.Contexts {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-
-            modelBuilder.Entity<CurrencyDetail>().HasOne(cd => cd.currencies)
-                .WithMany(a => a.CurrencyDetail).HasForeignKey(cd => cd.CurrencyId).OnDelete(DeleteBehavior.NoAction);
-        
+            modelBuilder.Entity<CurrencyDetail>().HasOne(cd => cd.Currencies)
+              .WithMany(a => a.CurrencyDetail).HasForeignKey(cd => cd.CurrencyId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

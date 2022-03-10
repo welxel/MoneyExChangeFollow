@@ -72,7 +72,7 @@ namespace AppCore.DataAccess.EntityFramework.Bases
             }
             catch (Exception exc)
             {
-                throw exc;
+                throw exc; 
             }
         }
 

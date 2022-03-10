@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace DataAccess.EntityFramework.Repositories.Bases {
-    public abstract class ICurrencyRepository:RepositoryBase<Currency> {
+    public abstract class ICurrencyRepository:RepositoryBase<Currencies> {
         public ICurrencyRepository(DbContext db):base(db) {
 
         }

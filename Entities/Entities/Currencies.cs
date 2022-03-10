@@ -7,9 +7,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Entities.Entities {
-    public class Currency:RecordBase {
-        public string Name { get; set; }
-        public string Code { get; set; }
+    public class Currencies:RecordBase {
+        public string Currency { get; set; }
+        public DateTime LastUpdate { get; set; }
+        public double CurrentRate { get; set; }
+
         public List<CurrencyDetail> CurrencyDetail { get; set; }
     }
 }
