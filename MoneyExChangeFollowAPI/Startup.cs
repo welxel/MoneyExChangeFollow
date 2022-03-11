@@ -48,7 +48,7 @@ namespace MoneyExChangeFollowAPI
             services.AddScoped<ICurrencyDetailService, CurrencyDetailService>();
             services.AddScoped<ICurrencyDetailRepository, CurrencyDetailRepository>();
 
-            var jobKey = new JobKey("notificationJob");
+            var jobKey = new JobKey("currencyJob");
             services.AddQuartz(q =>
             {
                 q.UseMicrosoftDependencyInjectionJobFactory();
