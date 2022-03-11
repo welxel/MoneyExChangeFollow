@@ -57,17 +57,17 @@ namespace APITesterScenarios
 
                 if (HttpStatusCode.OK == response.StatusCode)
                 {
-                    TestContext.WriteLine("Currency methotdan data gelmiştir test başarılı.");
+                    TestContext.WriteLine("Currency methot get data. Test is successfull.");
                 }
                 else
                 {
-                    TestContext.WriteLine("Currency Methodda sorun oluşmuştur.");
+                    TestContext.WriteLine("Currency Methodda is error. Test is unsuccessful");
                 }
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             }
             catch (System.Exception e)
             {
-                TestContext.WriteLine("Birşeyler yanlış gitti. Detay: " + e.Message);
+                TestContext.WriteLine("Somethink is wrong. Detail: " + e.Message);
             }
         }
 
@@ -82,18 +82,18 @@ namespace APITesterScenarios
                 var responseBody = await response.Content.ReadAsStringAsync();
                 if (HttpStatusCode.OK == response.StatusCode)
                 {
-                    TestContext.WriteLine("Currency methotdan data gelmiştir test başarılı.");
+                    TestContext.WriteLine("Currency get data. Test is succesfull.");
                 }
                 else
                 {
-                    TestContext.WriteLine("Currency Methodda sorun oluşmuştur.");
+                    TestContext.WriteLine("Currency Method is error. Test is unsuccessful.");
                 }
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             }
             
             catch (System.Exception e)
             {
-                TestContext.WriteLine("Birşeyler yanlış gitti. Detay: " + e.Message);
+                TestContext.WriteLine("Somethink is wrong. Detail: " + e.Message);
             }
 
         }
