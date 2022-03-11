@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 using XNUnitTest.Manager;
 using XServiceUnitTest;
 
-namespace RehberimApiTest {
+namespace APITesterScenarios
+{
     public class APITesterScenarios {
         private GeneralBusiness service;
         private HttpClient _localService;
